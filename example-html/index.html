@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ─── Primary Meta ─── -->
+  <title>BrewBox — Premium Coffee Capsules, Delivered</title>
+  <meta name="description" content="Specialty-grade coffee capsules sourced from top farms. Starting at ฿290/box. Free shipping nationwide. Subscribe and save 20%.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="BrewBox Thailand">
+
+  <!-- ─── Canonical ─── -->
+  <link rel="canonical" href="https://www.brewbox.th">
+
+  <!-- ─── Open Graph ─── -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BrewBox">
+  <meta property="og:title" content="BrewBox — Premium Coffee Capsules, Delivered">
+  <meta property="og:description" content="Specialty-grade coffee capsules sourced from top farms. Starting at ฿290/box. Free shipping nationwide.">
+  <meta property="og:image" content="https://www.brewbox.th/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://www.brewbox.th">
+  <meta property="og:locale" content="en_US">
+
+  <!-- ─── Twitter Card ─── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BrewBox — Premium Coffee Capsules">
+  <meta name="twitter:description" content="Specialty coffee capsules from ฿290, free shipping nationwide">
+  <meta name="twitter:image" content="https://www.brewbox.th/og-image.jpg">
+
+  <!-- ─── Structured Data: Product ─── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "BrewBox Premium Coffee Capsules",
+    "description": "Specialty-grade coffee capsules sourced from top farms worldwide.",
+    "brand": {
+      "@type": "Brand",
+      "name": "BrewBox"
+    },
+    "image": "https://www.brewbox.th/product-hero.jpg",
+    "url": "https://www.brewbox.th",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "THB",
+      "price": "290",
+      "priceValidUntil": "2025-12-31",
+      "availability": "https://schema.org/InStock",
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "THB"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "TH"
+        }
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "1284"
+    }
+  }
+  </script>
+
+  <!-- ─── Structured Data: Organization ─── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "BrewBox Thailand",
+    "url": "https://www.brewbox.th",
+    "logo": "https://www.brewbox.th/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/brewboxth",
+      "https://www.instagram.com/brewboxth"
+    ]
+  }
+  </script>
+
+  <!-- ─── Structured Data: LocalBusiness ───
+       Included because BrewBox has a real office/pickup location in Silom,
+       in addition to nationwide shipping. Pure online-only businesses
+       with no physical location should NOT include this schema. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "BrewBox Thailand",
+    "image": "https://www.brewbox.th/storefront.jpg",
+    "url": "https://www.brewbox.th",
+    "telephone": "+66-2-000-1234",
+    "priceRange": "฿฿",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Silom Road, Silom",
+      "addressLocality": "Bang Rak",
+      "addressRegion": "Bangkok",
+      "postalCode": "10500",
+      "addressCountry": "TH"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 13.7244,
+      "longitude": 100.5347
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "1284"
+    }
+  }
+  </script>
+
+  <!-- ─── Preload hero image ─── -->
+  <link rel="preload" as="image" href="/product-hero.webp" fetchpriority="high">
+
+  <!-- ─── Favicon ─── -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brown: #3b1f0e;
+      --cream: #fdf6ee;
+      --accent: #c8692a;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ─── Skip link (Accessibility + SEO) ─── */
+    .skip-link {
+      position: absolute;
+      top: -999px;
+      left: 0;
+      background: var(--brown);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      z-index: 999;
+      border-radius: 0 0 var(--radius) 0;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ─── Header / Nav ─── */
+    header {
+      background: var(--brown);
+      color: #fff;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { color: #fff; }
+
+    /* ─── Hero ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--brown) 0%, #6b3a1f 100%);
+      color: #fff;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .hero-inner { max-width: 700px; margin: 0 auto; }
+
+    /* h1 — only one per page, contains the primary keyword */
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+    h1 span { color: #f5c07a; }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-img-wrap {
+      margin: 2.5rem auto 0;
+      max-width: 480px;
+    }
+    /* Set aspect-ratio to prevent CLS */
+    .hero-img-wrap img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      display: block;
+    }
+
+    /* ─── CTA Button ─── */
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.9rem 2.5rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.5);
+      margin-left: 1rem;
+    }
+
+    /* ─── Rating strip ─── */
+    .rating-strip {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      padding: 0.6rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* ─── Section ─── */
+    section { padding: 4rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* h2 — main heading of each section */
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--brown);
+    }
+    .section-sub {
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+    }
+
+    /* ─── Products ─── */
+    .products { background: #fff; }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    article.product-card {
+      border: 1px solid #e8e0d8;
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    article.product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(59,31,14,0.12);
+    }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      background: #f0e8e0;
+    }
+    .card-body { padding: 1.25rem; }
+
+    /* h3 — name of each product */
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--brown);
+    }
+    .card-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .card-price { font-size: 1.2rem; font-weight: 800; color: var(--accent); }
+    .card-origin { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
+    /* ─── Features ─── */
+    .features { background: var(--cream); }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+    .feature-item { text-align: center; }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .feature-title { font-weight: 700; margin-bottom: 0.4rem; color: var(--brown); }
+    .feature-desc { font-size: 0.88rem; color: var(--muted); }
+
+    /* ─── Reviews ─── */
+    .reviews { background: #fff; }
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .review-stars { color: #f5a623; margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .review-text { font-size: 0.9rem; color: var(--text); margin-bottom: 1rem; line-height: 1.6; }
+    .reviewer { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--brown);
+      color: rgba(255,255,255,0.7);
+      padding: 2.5rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .footer-brand { color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .footer-copy { font-size: 0.8rem; }
+    address { font-style: normal; font-size: 0.85rem; line-height: 1.8; }
+    address a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    address a:hover { color: #fff; }
+
+    @media (max-width: 600px) {
+      .btn-outline { display: none; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip to main content: Accessibility + SEO -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ─── Header ─── -->
+  <header>
+    <nav aria-label="Main menu">
+      <a href="/" class="logo" aria-label="BrewBox home">BrewBox</a>
+      <ul class="nav-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#features">Why BrewBox</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ─── Hero ─── -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-inner">
+      <h1 id="hero-heading">
+        Specialty<span>Coffee Capsules</span><br>Delivered to Your Door
+      </h1>
+      <p class="hero-desc">
+        Beans sourced from top farms across 12 countries.
+        Freshly packed into capsules every week.
+        Compatible with all Nespresso machines.
+      </p>
+      <a href="#products" class="btn">Shop Packages</a>
+      <a href="#features" class="btn btn-outline">About BrewBox</a>
+
+      <!-- Hero image: already preloaded in head, fetchpriority="high", not lazy-loaded -->
+      <div class="hero-img-wrap">
+        <picture>
+          <source srcset="/product-hero.avif" type="image/avif">
+          <source srcset="/product-hero.webp" type="image/webp">
+          <img
+            src="/product-hero.jpg"
+            alt="BrewBox premium coffee capsule box with specialty coffee beans"
+            width="480"
+            height="360"
+            fetchpriority="high"
+          >
+        </picture>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rating strip -->
+  <div class="rating-strip" role="status" aria-label="Product review rating">
+    ★★★★★ 4.9 · Over 1,284 customer reviews · Free shipping nationwide
+  </div>
+
+  <!-- ─── Main content ─── -->
+  <main id="main-content">
+
+    <!-- Products Section -->
+    <section class="products" id="products" aria-labelledby="products-heading">
+      <div class="container">
+        <h2 id="products-heading">Choose Your Perfect Package</h2>
+        <p class="section-sub">3 tiers of coffee capsules for every lifestyle</p>
+
+        <div class="product-grid">
+
+          <!-- Product card 1 -->
+          <article class="product-card" itemscope itemtype="https://schema.org/Product">
+            <img
+              class="card-img"
+              src="/capsule-single.webp"
+              alt="BrewBox Single Origin coffee capsules, pack of 10"
+              width="400"
+              height="300"
+              loading="lazy"
+              itemprop="image"
+            >
+            <div class="card-body">
+              <h3 itemprop="name">Single Origin</h3>
+              <p class="card-desc" itemprop="description">
+                Single-origin coffee with a distinct flavor, perfect for beginners.
+              </p>
+              <div class="card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <span itemprop="priceCurrency" content="THB">฿</span>
+                <span itemprop="price" content="290">290</span>
+                <link itemprop="availability" href="https://schema.org/InStock">
+              </div>
+              <p class="card-origin">🇪🇹 Ethiopia Yirgacheffe · 10 capsules</p>
+            </div>
+          </article>
+
+          <!-- Product card 2 -->
+          <article class="product-card" itemscope itemtype="https://schema.org/Product">
+            <img
+              class="card-img"
+              src="/capsule-blend.webp"
+              alt="BrewBox House Blend coffee capsules, pack of 20"
+              width="400"
+              height="300"
+              loading="lazy"
+              itemprop="image"
+            >
+            <div class="card-body">
+              <h3 itemprop="name">House Blend</h3>
+              <p class="card-desc" itemprop="description">
+                BrewBox's signature blend, smooth and easy to drink every day.
+              </p>
+              <div class="card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <span itemprop="priceCurrency" content="THB">฿</span>
+                <span itemprop="price" content="490">490</span>
+                <link itemprop="availability" href="https://schema.org/InStock">
+              </div>
+              <p class="card-origin">🇧🇷 Brazil + 🇨🇴 Colombia · 20 capsules</p>
+            </div>
+          </article>
+
+          <!-- Product card 3 -->
+          <article class="product-card" itemscope itemtype="https://schema.org/Product">
+            <img
+              class="card-img"
+              src="/capsule-subscription.webp"
+              alt="BrewBox Monthly subscription coffee capsules, pack of 40"
+              width="400"
+              height="300"
+              loading="lazy"
+              itemprop="image"
+            >
+            <div class="card-body">
+              <h3 itemprop="name">Monthly Box</h3>
+              <p class="card-desc" itemprop="description">
+                Monthly subscription — fresh coffee every month, save up to 20%.
+              </p>
+              <div class="card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <span itemprop="priceCurrency" content="THB">฿</span>
+                <span itemprop="price" content="790">790</span>
+                <link itemprop="availability" href="https://schema.org/InStock">
+              </div>
+              <p class="card-origin">🌍 Rotating Origins · 40 capsules/month</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features" aria-labelledby="features-heading">
+      <div class="container">
+        <h2 id="features-heading">Why BrewBox</h2>
+        <p class="section-sub">Proven quality, trusted by over 50,000 customers</p>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">☕</div>
+            <h3 class="feature-title">Specialty Grade</h3>
+            <p class="feature-desc">Only beans scoring SCA 80+ make it into every batch.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">📦</div>
+            <h3 class="feature-title">Freshly Packed</h3>
+            <p class="feature-desc">Roasted and packed into capsules weekly, guaranteed fresh.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">🚚</div>
+            <h3 class="feature-title">Free Nationwide Shipping</h3>
+            <p class="feature-desc">Express delivery within 24 hours, on every order, no minimum.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">♻️</div>
+            <h3 class="feature-title">Compostable Capsules</h3>
+            <p class="feature-desc">100% biodegradable within 12 weeks. Better for the planet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews" id="reviews" aria-labelledby="reviews-heading">
+      <div class="container">
+        <h2 id="reviews-heading">Real Customer Reviews</h2>
+        <p class="section-sub">★★★★★ 4.9 average from 1,284 reviews</p>
+
+        <div class="review-grid">
+
+          <div class="review-card" itemscope itemtype="https://schema.org/Review">
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-text" itemprop="reviewBody">
+              "The coffee is amazing, honestly better than my neighborhood café.
+              I love that there are so many origins to choose from — tried Ethiopia and got hooked."
+            </p>
+            <p class="reviewer" itemprop="author" itemscope itemtype="https://schema.org/Person">
+              <span itemprop="name">Napa</span> · Bangkok
+            </p>
+          </div>
+
+          <div class="review-card" itemscope itemtype="https://schema.org/Review">
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-text" itemprop="reviewBody">
+              "I've been on the Monthly Box for 3 months now, totally worth it.
+              I get to try new coffee every month, and shipping is fast too."
+            </p>
+            <p class="reviewer" itemprop="author" itemscope itemtype="https://schema.org/Person">
+              <span itemprop="name">Thanawat</span> · Chiang Mai
+            </p>
+          </div>
+
+          <div class="review-card" itemscope itemtype="https://schema.org/Review">
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-text" itemprop="reviewBody">
+              "The capsules are compostable so I never feel guilty drinking it.
+              Great coffee, nice packaging too — makes a perfect gift for friends."
+            </p>
+            <p class="reviewer" itemprop="author" itemscope itemtype="https://schema.org/Person">
+              <span itemprop="name">Panisara</span> · Khon Kaen
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── Footer ─── -->
+  <footer id="contact">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">BrewBox</div>
+        <p class="footer-copy">© 2025 BrewBox Thailand. All rights reserved.</p>
+      </div>
+      <address>
+        <strong style="color:#fff">Contact Us</strong><br>
+        <a href="mailto:hello@brewbox.th">hello@brewbox.th</a><br>
+        <a href="tel:+6620001234">02-000-1234</a><br>
+        123 Silom Road, Bang Rak, Bangkok 10500
+      </address>
+    </div>
+  </footer>
+
+</body>
+</html>

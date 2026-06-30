@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Guide — Dev & Designer Edition</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0b0f1a;
+  --surface: #111827;
+  --surface2: #1a2235;
+  --border: #1f2d42;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --accent: #3b82f6;
+  --accent2: #8b5cf6;
+  --good: #10b981;
+  --bad: #ef4444;
+  --warn: #f59e0b;
+  --code-bg: #0d1117;
+  --mono: 'Courier New', monospace;
+  --sans: 'Segoe UI', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* ─── Sidebar ─── */
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 1.5rem 0;
+}
+.sidebar-logo {
+  padding: 0 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.sidebar-logo .logo-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+.sidebar-logo h1 { font-size: 1rem; font-weight: 700; color: var(--text); }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 1.5rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+}
+.nav-item:hover { color: var(--text); background: var(--surface2); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(59,130,246,0.06); }
+.nav-num {
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-weight: 600;
+  min-width: 18px;
+}
+
+/* ─── Main ─── */
+.main { flex: 1; min-width: 0; }
+
+/* ─── Hero ─── */
+.hero {
+  background: linear-gradient(135deg, #0f1b2d 0%, #0b0f1a 60%);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem 3rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero-sub { color: var(--muted); max-width: 520px; font-size: 0.95rem; }
+.hero-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.chip {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ─── Section ─── */
+.section {
+  padding: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.section-num {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  padding-top: 0.3rem;
+  min-width: 28px;
+}
+.section-title-wrap h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+.section-title-wrap p { color: var(--muted); font-size: 0.88rem; }
+
+/* ─── Illustration container ─── */
+.illustration {
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.illustration svg { display: block; width: 100%; }
+
+/* ─── Code block ─── */
+.code-wrap { margin: 1rem 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.code-header {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface2); padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.code-header span { font-size: 0.72rem; color: var(--muted); font-family: var(--mono); }
+.code-lang {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent);
+  background: rgba(59,130,246,0.1);
+  padding: 0.1rem 0.4rem; border-radius: 4px;
+}
+.code-body { background: var(--code-bg); padding: 1.25rem; overflow-x: auto; }
+.code-body pre { font-family: var(--mono); font-size: 0.8rem; line-height: 1.75; color: #cdd6f4; }
+.hl-tag { color: #89b4fa; }
+.hl-attr { color: #a6e3a1; }
+.hl-val { color: #f9e2af; }
+.hl-comment { color: #45475a; font-style: italic; }
+.hl-good { color: #a6e3a1; font-weight: 600; }
+.hl-bad { color: #f38ba8; }
+.hl-key { color: #cba6f7; }
+.hl-str { color: #f9e2af; }
+.hl-num { color: #fab387; }
+.hl-fn { color: #89b4fa; }
+
+/* ─── Grid ─── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
+
+/* ─── Card ─── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+.card.good { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.04); }
+.card.bad { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.04); }
+.card-label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.card-label.good { color: var(--good); }
+.card-label.bad { color: var(--bad); }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ─── Table ─── */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+th {
+  background: var(--surface2); color: var(--muted);
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.6rem 1rem; text-align: left; border-bottom: 1px solid var(--border);
+}
+td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); color: var(--text); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--surface2); }
+
+/* ─── Checklist ─── */
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  font-size: 0.85rem; padding: 0.5rem 0.75rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 7px;
+}
+.checklist li .ck { color: var(--good); font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+
+/* ─── Tag ─── */
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0; }
+.tag {
+  font-size: 0.72rem; font-weight: 600;
+  padding: 0.2rem 0.6rem; border-radius: 5px;
+}
+.tag.good { background: rgba(16,185,129,0.15); color: var(--good); }
+.tag.bad { background: rgba(239,68,68,0.15); color: var(--bad); }
+.tag.warn { background: rgba(245,158,11,0.15); color: var(--warn); }
+.tag.blue { background: rgba(59,130,246,0.15); color: var(--accent); }
+.tag.purple { background: rgba(139,92,246,0.15); color: var(--accent2); }
+
+/* ─── Alert ─── */
+.alert {
+  padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.82rem;
+  margin: 1rem 0; display: flex; gap: 0.6rem; align-items: flex-start;
+  line-height: 1.5;
+}
+.alert.warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); color: #fbbf24; }
+.alert.info { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25); color: #93c5fd; }
+.alert.good { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); color: #6ee7b7; }
+
+/* ─── SERP ─── */
+.serp-box {
+  background: #fff; border-radius: 10px; padding: 1rem 1.25rem;
+  margin: 1rem 0; color: #202124; max-width: 600px;
+}
+.serp-url { font-size: 0.72rem; color: #5f6368; margin-bottom: 0.15rem; }
+.serp-title { font-size: 1rem; color: #1a0dab; margin-bottom: 0.2rem; }
+.serp-stars { color: #f5a623; font-size: 0.75rem; margin-bottom: 0.2rem; }
+.serp-desc { font-size: 0.8rem; color: #4d5156; line-height: 1.5; }
+.serp-rich {
+  background: #f8f9fa; border-left: 3px solid #1a73e8;
+  padding: 0.5rem 0.75rem; font-size: 0.72rem; color: #4d5156;
+  margin-top: 0.5rem; border-radius: 0 4px 4px 0;
+}
+
+/* ─── Priority Matrix ─── */
+.priority-row { display: flex; flex-direction: column; gap: 0.75rem; margin: 1rem 0; }
+.priority-group {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden;
+}
+.priority-head {
+  padding: 0.6rem 1rem; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.priority-head.high { background: rgba(239,68,68,0.1); color: #f87171; border-bottom: 1px solid rgba(239,68,68,0.2); }
+.priority-head.mid { background: rgba(245,158,11,0.1); color: #fbbf24; border-bottom: 1px solid rgba(245,158,11,0.2); }
+.priority-head.low { background: rgba(100,116,139,0.1); color: var(--muted); border-bottom: 1px solid var(--border); }
+.priority-items { padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.priority-item { font-size: 0.82rem; color: var(--text); display: flex; align-items: center; gap: 0.5rem; }
+.priority-item::before { content: '›'; color: var(--muted); }
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .section { padding: 2rem 1.5rem; }
+  .hero { padding: 2.5rem 1.5rem; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ─── Sidebar ─── -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-tag">SEO Guide</div>
+    <h1>Dev & Designer Edition</h1>
+  </div>
+  <a href="#s1" class="nav-item active"><span class="nav-num">01</span>Why Should You Care About SEO?</a>
+  <a href="#s2" class="nav-item"><span class="nav-num">02</span>Core Web Vitals</a>
+  <a href="#s3" class="nav-item"><span class="nav-num">03</span>HTML Semantics</a>
+  <a href="#s4" class="nav-item"><span class="nav-num">04</span>Meta Tags</a>
+  <a href="#s5" class="nav-item"><span class="nav-num">05</span>Structured Data</a>
+  <a href="#s6" class="nav-item"><span class="nav-num">06</span>Image Optimization</a>
+  <a href="#s7" class="nav-item"><span class="nav-num">07</span>Rendering Strategy</a>
+  <a href="#s8" class="nav-item"><span class="nav-num">08</span>Technical Checklist</a>
+  <a href="#s9" class="nav-item"><span class="nav-num">09</span>Tools</a>
+  <a href="#s10" class="nav-item"><span class="nav-num">10</span>SEO by Stack</a>
+  <a href="#s11" class="nav-item"><span class="nav-num">11</span>Content SEO</a>
+  <a href="#s12" class="nav-item"><span class="nav-num">12</span>Off-Page SEO</a>
+  <a href="#s13" class="nav-item"><span class="nav-num">13</span>Local SEO</a>
+  <a href="#s14" class="nav-item"><span class="nav-num">14</span>Competitive & Measurement</a>
+  <a href="#s15" class="nav-item"><span class="nav-num">15</span>Priority</a>
+</nav>
+
+<!-- ─── Main ─── -->
+<div class="main">
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">Technical SEO — Dev & Designer Edition</div>
+  <h1>SEO Is Not Just a<em>Marketing</em> Job</h1>
+  <p class="hero-sub">80% of SEO problems come from code and design — this guide covers everything Dev & Designer teams need to know, from basic HTML to real-world Next.js stacks</p>
+  <div class="hero-chips">
+    <span class="chip">HTML Semantics</span>
+    <span class="chip">Core Web Vitals</span>
+    <span class="chip">Structured Data</span>
+    <span class="chip">Next.js / SSR</span>
+    <span class="chip">Image Optimization</span>
+  </div>
+</div>
+
+<!-- ─── S1: Why care ─── -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div class="section-title-wrap">
+      <h2>Why Dev & Designer Should Care About SEO</h2>
+      <p>SEO is not just the Marketing team's job — 80% of problems come from code and design</p>
+    </div>
+  </div>
+
+  <!-- SVG: Pie chart who owns SEO problems -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <!-- Title -->
+      <text x="350" y="32" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="700" font-family="system-ui">SEO Problem Origins</text>
+
+      <!-- Bar chart -->
+      <g transform="translate(60,55)">
+        <!-- Grid lines -->
+        <line x1="0" y1="0" x2="580" y2="0" stroke="#1f2d42" stroke-width="1"/>
+        <line x1="0" y1="40" x2="580" y2="40" stroke="#1f2d42" stroke-width="1"/>
+        <line x1="0" y1="80" x2="580" y2="80" stroke="#1f2d42" stroke-width="1"/>
+        <line x1="0" y1="120" x2="580" y2="120" stroke="#1f2d42" stroke-width="1"/>
+        <line x1="0" y1="160" x2="580" y2="160" stroke="#1f2d42" stroke-width="1"/>
+
+        <!-- Bars: real Web Almanac 2025 figures (% of pages with the ISSUE present) -->
+        <!-- Fail Core Web Vitals (mobile) 52% -->
+        <rect x="20" y="86" width="92" height="74" rx="4" fill="#3b82f6" opacity=".9"/>
+        <text x="66" y="175" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Fail Core Web Vitals</text>
+        <text x="66" y="82" text-anchor="middle" fill="#93c5fd" font-size="10" font-weight="700" font-family="system-ui">52%</text>
+
+        <!-- Invalid head HTML 10% -->
+        <rect x="135" y="146" width="92" height="14" rx="4" fill="#8b5cf6" opacity=".9"/>
+        <text x="181" y="175" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Invalid head HTML</text>
+        <text x="181" y="142" text-anchor="middle" fill="#c4b5fd" font-size="10" font-weight="700" font-family="system-ui">10%</text>
+
+        <!-- Missing canonical 35% -->
+        <rect x="250" y="104" width="92" height="56" rx="4" fill="#10b981" opacity=".9"/>
+        <text x="296" y="175" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">No canonical tag</text>
+        <text x="296" y="100" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="700" font-family="system-ui">35%</text>
+
+        <!-- Missing meta description 31% -->
+        <rect x="365" y="111" width="92" height="49" rx="4" fill="#f59e0b" opacity=".9"/>
+        <text x="411" y="175" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">No meta description</text>
+        <text x="411" y="107" text-anchor="middle" fill="#fde68a" font-size="10" font-weight="700" font-family="system-ui">31%</text>
+
+        <!-- og:image missing 52% -->
+        <rect x="480" y="86" width="92" height="74" rx="4" fill="#ef4444" opacity=".9"/>
+        <text x="526" y="175" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">No og:image</text>
+        <text x="526" y="82" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="700" font-family="system-ui">52%</text>
+
+        <!-- Y axis label -->
+        <text x="-8" y="164" text-anchor="end" fill="#64748b" font-size="8" font-family="system-ui">0%</text>
+        <text x="-8" y="4" text-anchor="end" fill="#64748b" font-size="8" font-family="system-ui">100%</text>
+      </g>
+
+      <!-- Footer note: real, verifiable source -->
+      <text x="350" y="248" text-anchor="middle" fill="#45475a" font-size="10" font-family="system-ui">% of pages worldwide with this issue (source: Web Almanac 2025, HTTP Archive — almanac.httparchive.org)</text>
+    </svg>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Common Problem</th><th>Root Cause</th><th>Responsible</th></tr>
+      <tr><td>Slow page load</td><td>Unoptimized images, large JS bundle</td><td><span class="tag blue">Dev</span></td></tr>
+      <tr><td>Layout shift</td><td>Poor CSS/font loading</td><td><span class="tag blue">Dev</span> <span class="tag purple">Designer</span></td></tr>
+      <tr><td>Bot can't read content</td><td>Pure CSR, no SSR</td><td><span class="tag blue">Dev</span></td></tr>
+      <tr><td>Poor structure</td><td>No Semantic HTML</td><td><span class="tag blue">Dev</span> <span class="tag purple">Designer</span></td></tr>
+      <tr><td>Missing Meta / OG tags</td><td>Forgotten or not known to matter</td><td><span class="tag blue">Dev</span></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ─── S2: Core Web Vitals ─── -->
+
+<section class="section" id="s2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div class="section-title-wrap">
+      <h2>Core Web Vitals</h2>
+      <p>3 metrics Google actually uses for ranking</p>
+    </div>
+  </div>
+
+  <!-- SVG: 3 gauges LCP CLS INP -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <defs>
+        <linearGradient id="g-good" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#10b981"/>
+          <stop offset="100%" style="stop-color:#059669"/>
+        </linearGradient>
+        <linearGradient id="g-bad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#ef4444"/>
+          <stop offset="100%" style="stop-color:#dc2626"/>
+        </linearGradient>
+      </defs>
+
+      <!-- LCP Card -->
+      <rect x="30" y="20" width="190" height="175" rx="12" fill="#1a2235" stroke="#1f2d42" stroke-width="1"/>
+      <text x="125" y="48" text-anchor="middle" fill="#89b4fa" font-size="11" font-weight="700" font-family="system-ui">LCP</text>
+      <text x="125" y="64" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Largest Contentful Paint</text>
+      <!-- gauge arc background -->
+      <path d="M 75,145 A 50,50 0 0,1 175,145" fill="none" stroke="#1f2d42" stroke-width="10" stroke-linecap="round"/>
+      <!-- gauge fill: good (2.5s target) -->
+      <path d="M 75,145 A 50,50 0 0,1 125,95" fill="none" stroke="url(#g-good)" stroke-width="10" stroke-linecap="round"/>
+      <text x="125" y="140" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="800" font-family="system-ui">2.5s</text>
+      <text x="125" y="158" text-anchor="middle" fill="#10b981" font-size="9" font-weight="700" font-family="system-ui">Target ≤ 2.5s</text>
+      <text x="125" y="178" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Largest content element loaded</text>
+
+      <!-- CLS Card -->
+      <rect x="255" y="20" width="190" height="175" rx="12" fill="#1a2235" stroke="#1f2d42" stroke-width="1"/>
+      <text x="350" y="48" text-anchor="middle" fill="#c4b5fd" font-size="11" font-weight="700" font-family="system-ui">CLS</text>
+      <text x="350" y="64" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Cumulative Layout Shift</text>
+      <path d="M 300,145 A 50,50 0 0,1 400,145" fill="none" stroke="#1f2d42" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 300,145 A 50,50 0 0,1 345,97" fill="none" stroke="#10b981" stroke-width="10" stroke-linecap="round"/>
+      <text x="350" y="140" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="800" font-family="system-ui">0.1</text>
+      <text x="350" y="158" text-anchor="middle" fill="#10b981" font-size="9" font-weight="700" font-family="system-ui">Target ≤ 0.1</text>
+      <text x="350" y="178" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Layout shifts during load</text>
+
+      <!-- INP Card -->
+      <rect x="480" y="20" width="190" height="175" rx="12" fill="#1a2235" stroke="#1f2d42" stroke-width="1"/>
+      <text x="575" y="48" text-anchor="middle" fill="#fde68a" font-size="11" font-weight="700" font-family="system-ui">INP</text>
+      <text x="575" y="64" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Interaction to Next Paint</text>
+      <path d="M 525,145 A 50,50 0 0,1 625,145" fill="none" stroke="#1f2d42" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 525,145 A 50,50 0 0,1 566,98" fill="none" stroke="#10b981" stroke-width="10" stroke-linecap="round"/>
+      <text x="575" y="140" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="800" font-family="system-ui">200ms</text>
+      <text x="575" y="158" text-anchor="middle" fill="#10b981" font-size="9" font-weight="700" font-family="system-ui">Target ≤ 200ms</text>
+      <text x="575" y="178" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Response to click/button press</text>
+    </svg>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-label good"><div class="dot"></div>LCP Fix</div>
+      <ul style="list-style:none;font-size:0.82rem;display:flex;flex-direction:column;gap:0.4rem;color:var(--muted)">
+        <li>→ Preload hero image</li>
+        <li>→ No lazy-load above fold</li>
+        <li>→ Use CDN + WebP/AVIF</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label good"><div class="dot"></div>CLS Fix</div>
+      <ul style="list-style:none;font-size:0.82rem;display:flex;flex-direction:column;gap:0.4rem;color:var(--muted)">
+        <li>→ Add width/height to every image</li>
+        <li>→ font-display: swap</li>
+        <li>→ Reserve space before inject</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label good"><div class="dot"></div>INP Fix</div>
+      <ul style="list-style:none;font-size:0.82rem;display:flex;flex-direction:column;gap:0.4rem;color:var(--muted)">
+        <li>→ Avoid heavy JS</li>
+        <li>→ requestIdleCallback</li>
+        <li>→ Code splitting</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>LCP — Right vs Wrong</span><span class="code-lang">HTML</span></div>
+    <div class="code-body"><pre><span class="hl-comment">&lt;!-- ✅ Correct: Preload hero image --&gt;</span>
+<span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"preload"</span> <span class="hl-attr">as</span>=<span class="hl-val">"image"</span> <span class="hl-attr">href</span>=<span class="hl-val">"/hero.webp"</span> <span class="hl-attr">fetchpriority</span>=<span class="hl-val">"high"</span><span class="hl-tag">&gt;</span>
+
+<span class="hl-comment">&lt;!-- ❌ Wrong: lazy-load an above-the-fold image --&gt;</span>
+<span class="hl-bad">&lt;img</span> <span class="hl-attr">src</span>=<span class="hl-val">"/hero.jpg"</span> <span class="hl-attr">loading</span>=<span class="hl-bad">"lazy"</span><span class="hl-bad">&gt;</span>
+
+<span class="hl-comment">&lt;!-- ✅ Correct: specify dimensions to prevent CLS --&gt;</span>
+<span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span class="hl-val">"photo.webp"</span> <span class="hl-attr">width</span>=<span class="hl-val">"800"</span> <span class="hl-attr">height</span>=<span class="hl-val">"600"</span> <span class="hl-attr">alt</span>=<span class="hl-val">"..."</span><span class="hl-tag">&gt;</span>
+
+<span class="hl-comment">&lt;!-- ❌ Wrong: no dimensions — layout jumps when image loads --&gt;</span>
+<span class="hl-bad">&lt;img</span> <span class="hl-attr">src</span>=<span class="hl-val">"photo.jpg"</span><span class="hl-bad">&gt;</span></pre></div>
+  </div>
+</section>
+
+<!-- ─── S3: HTML Semantics ─── -->
+
+<section class="section" id="s3">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div class="section-title-wrap">
+      <h2>HTML Semantics</h2>
+      <p>Google reads pages through HTML — if structure is poor, bots can't understand content</p>
+    </div>
+  </div>
+
+  <!-- SVG: DOM Tree comparison -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <!-- Bad side -->
+      <text x="175" y="28" text-anchor="middle" fill="#f38ba8" font-size="11" font-weight="700" font-family="system-ui">❌ No Semantic HTML</text>
+      <!-- html -->
+      <rect x="140" y="38" width="70" height="24" rx="5" fill="#2d1b1b" stroke="#ef4444" stroke-width="1"/>
+      <text x="175" y="54" text-anchor="middle" fill="#f38ba8" font-size="10" font-family="monospace">&lt;html&gt;</text>
+      <line x1="175" y1="62" x2="100" y2="80" stroke="#45475a" stroke-width="1"/>
+      <line x1="175" y1="62" x2="250" y2="80" stroke="#45475a" stroke-width="1"/>
+      <rect x="60" y="80" width="80" height="22" rx="5" fill="#1a2235" stroke="#1f2d42" stroke-width="1"/>
+      <text x="100" y="95" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">&lt;div&gt;</text>
+      <rect x="210" y="80" width="80" height="22" rx="5" fill="#1a2235" stroke="#1f2d42" stroke-width="1"/>
+      <text x="250" y="95" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">&lt;div&gt;</text>
+      <line x1="100" y1="102" x2="75" y2="118" stroke="#45475a" stroke-width="1"/>
+      <line x1="100" y1="102" x2="125" y2="118" stroke="#45475a" stroke-width="1"/>
+      <rect x="40" y="118" width="70" height="22" rx="5" fill="#2d1b1b" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="75" y="133" text-anchor="middle" fill="#f38ba8" font-size="10" font-family="monospace">&lt;h1&gt;×2</text>
+      <rect x="95" y="118" width="70" height="22" rx="5" fill="#2d1b1b" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="130" y="133" text-anchor="middle" fill="#f38ba8" font-size="10" font-family="monospace">&lt;h4&gt;skip</text>
+      <text x="175" y="170" text-anchor="middle" fill="#f38ba8" font-size="9" font-family="system-ui">Bot doesn't know what's nav, main, footer</text>
+      <text x="175" y="184" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Duplicate h1 + skipped levels = Google confused</text>
+
+      <!-- Divider -->
+      <line x1="350" y1="20" x2="350" y2="200" stroke="#1f2d42" stroke-width="1" stroke-dasharray="4,3"/>
+
+      <!-- Good side -->
+      <text x="525" y="28" text-anchor="middle" fill="#a6e3a1" font-size="11" font-weight="700" font-family="system-ui">✅ Semantic HTML</text>
+      <rect x="490" y="38" width="70" height="24" rx="5" fill="#1a2d1a" stroke="#10b981" stroke-width="1"/>
+      <text x="525" y="54" text-anchor="middle" fill="#a6e3a1" font-size="10" font-family="monospace">&lt;html&gt;</text>
+      <line x1="525" y1="62" x2="440" y2="80" stroke="#2d4a3e" stroke-width="1"/>
+      <line x1="525" y1="62" x2="525" y2="80" stroke="#2d4a3e" stroke-width="1"/>
+      <line x1="525" y1="62" x2="610" y2="80" stroke="#2d4a3e" stroke-width="1"/>
+      <!-- header -->
+      <rect x="390" y="80" width="70" height="22" rx="5" fill="#1a2d1a" stroke="#10b981" stroke-width="1"/>
+      <text x="425" y="95" text-anchor="middle" fill="#a6e3a1" font-size="10" font-family="monospace">&lt;header&gt;</text>
+      <!-- main -->
+      <rect x="490" y="80" width="70" height="22" rx="5" fill="#1a2d1a" stroke="#10b981" stroke-width="1"/>
+      <text x="525" y="95" text-anchor="middle" fill="#a6e3a1" font-size="10" font-family="monospace">&lt;main&gt;</text>
+      <!-- footer -->
+      <rect x="580" y="80" width="70" height="22" rx="5" fill="#1a2d1a" stroke="#10b981" stroke-width="1"/>
+      <text x="615" y="95" text-anchor="middle" fill="#a6e3a1" font-size="10" font-family="monospace">&lt;footer&gt;</text>
+      <!-- nav under header -->
+      <line x1="425" y1="102" x2="425" y2="118" stroke="#2d4a3e" stroke-width="1"/>
+      <rect x="390" y="118" width="70" height="22" rx="5" fill="#1a2d1a" stroke="#10b981" stroke-width="1"/>
+      <text x="425" y="133" text-anchor="middle" fill="#a6e3a1" font-size="10" font-family="monospace">&lt;nav&gt;</text>
+      <!-- h1 under main -->
+      <line x1="525" y1="102" x2="490" y2="118" stroke="#2d4a3e" stroke-width="1"/>
+      <line x1="525" y1="102" x2="545" y2="118" stroke="#2d4a3e" stroke-width="1"/>
+      <rect x="455" y="118" width="50" height="22" rx="5" fill="#1a2d1a" stroke="#10b981" stroke-width="1"/>
+      <text x="480" y="133" text-anchor="middle" fill="#a6e3a1" font-size="10" font-family="monospace">&lt;h1&gt;×1</text>
+      <rect x="515" y="118" width="60" height="22" rx="5" fill="#1a2d1a" stroke="#10b981" stroke-width="1"/>
+      <text x="545" y="133" text-anchor="middle" fill="#a6e3a1" font-size="10" font-family="monospace">&lt;section&gt;</text>
+      <text x="525" y="170" text-anchor="middle" fill="#a6e3a1" font-size="9" font-family="system-ui">Bot understands structure immediately</text>
+      <text x="525" y="184" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Single h1, clear hierarchy</text>
+    </svg>
+  </div>
+
+  <div class="grid-2">
+    <div class="card bad">
+      <div class="card-label bad"><div class="dot"></div>Wrong — div soup</div>
+      <div class="code-wrap" style="margin:0">
+        <div class="code-body" style="padding:0.75rem"><pre style="font-size:0.75rem"><span class="hl-bad">&lt;div class="top"&gt;</span>
+  <span class="hl-bad">&lt;div class="logo"&gt;</span>AunJai<span class="hl-bad">&lt;/div&gt;</span>
+<span class="hl-bad">&lt;/div&gt;</span>
+<span class="hl-bad">&lt;div class="wrap"&gt;</span>
+  <span class="hl-bad">&lt;h1&gt;</span>Welcome<span class="hl-bad">&lt;/h1&gt;</span>
+  <span class="hl-bad">&lt;h1&gt;</span>Menu<span class="hl-bad">&lt;/h1&gt;</span> <span class="hl-comment">← 2 h1!</span>
+  <span class="hl-bad">&lt;h4&gt;</span>Coffee<span class="hl-bad">&lt;/h4&gt;</span> <span class="hl-comment">← skips h2,h3</span>
+<span class="hl-bad">&lt;/div&gt;</span></pre></div>
+      </div>
+    </div>
+    <div class="card good">
+      <div class="card-label good"><div class="dot"></div>Correct — Semantic</div>
+      <div class="code-wrap" style="margin:0">
+        <div class="code-body" style="padding:0.75rem"><pre style="font-size:0.75rem"><span class="hl-good">&lt;header&gt;</span>
+  <span class="hl-good">&lt;nav&gt;</span>AunJai<span class="hl-good">&lt;/nav&gt;</span>
+<span class="hl-good">&lt;/header&gt;</span>
+<span class="hl-good">&lt;main&gt;</span>
+  <span class="hl-good">&lt;h1&gt;</span>AunJai Café<span class="hl-good">&lt;/h1&gt;</span>
+  <span class="hl-good">&lt;h2&gt;</span>Menu<span class="hl-good">&lt;/h2&gt;</span>
+  <span class="hl-good">&lt;h3&gt;</span>Coffee<span class="hl-good">&lt;/h3&gt;</span>
+<span class="hl-good">&lt;/main&gt;</span></pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── S4: Meta Tags ─── -->
+
+<section class="section" id="s4">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div class="section-title-wrap">
+      <h2>Meta Tags</h2>
+      <p>The first thing Google sees — controls title, description and social preview</p>
+    </div>
+  </div>
+
+  <!-- SVG: SERP anatomy -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <text x="30" y="30" fill="#64748b" font-size="11" font-weight="700" font-family="system-ui">Google Search Result — Anatomy</text>
+
+      <!-- SERP box -->
+      <rect x="30" y="44" width="380" height="130" rx="8" fill="white"/>
+      <!-- URL -->
+      <text x="46" y="66" fill="#5f6368" font-size="10" font-family="system-ui">aunjai-cafe.com › menu</text>
+      <!-- Title -->
+      <text x="46" y="86" fill="#1a0dab" font-size="14" font-weight="600" font-family="system-ui">Fresh Coffee AunJai | Sukhumvit Café</text>
+      <!-- Stars -->
+      <text x="46" y="103" fill="#f5a623" font-size="10" font-family="system-ui">★★★★★ 4.8 · Café · Open now</text>
+      <!-- Desc -->
+      <text x="46" y="120" fill="#4d5156" font-size="11" font-family="system-ui">Freshly roasted coffee weekly, cozy atmosphere</text>
+      <text x="46" y="136" fill="#4d5156" font-size="11" font-family="system-ui">Free WiFi, open daily 7:00–21:00, near BTS Asok</text>
+      <!-- Rich -->
+      <rect x="46" y="146" width="350" height="20" rx="3" fill="#f8f9fa"/>
+      <text x="52" y="160" fill="#4d5156" font-size="9" font-family="system-ui">📍 123 Sukhumvit Rd · ☎ 02-123-4567 · Open until 21:00</text>
+
+      <!-- Arrows + labels -->
+      <line x1="415" y1="86" x2="460" y2="70" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arr)"/>
+      <text x="465" y="68" fill="#93c5fd" font-size="10" font-weight="700" font-family="system-ui">&lt;title&gt; 50-60 characters</text>
+
+      <line x1="415" y1="128" x2="460" y2="115" stroke="#10b981" stroke-width="1.5"/>
+      <text x="465" y="113" fill="#6ee7b7" font-size="10" font-weight="700" font-family="system-ui">meta description 120-158 chars</text>
+
+      <line x1="415" y1="157" x2="460" y2="152" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="465" y="150" fill="#c4b5fd" font-size="10" font-weight="700" font-family="system-ui">Structured Data (rich snippet)</text>
+
+      <defs>
+        <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#3b82f6"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>Essential Meta Tags</span><span class="code-lang">HTML</span></div>
+    <div class="code-body"><pre><span class="hl-comment">&lt;!-- Title: 50-60 characters, main keyword first --&gt;</span>
+<span class="hl-tag">&lt;title&gt;</span>Fresh Coffee AunJai | Sukhumvit Café Bangkok<span class="hl-tag">&lt;/title&gt;</span>
+
+<span class="hl-comment">&lt;!-- Description: 120-158 characters, compelling enough to click --&gt;</span>
+<span class="hl-tag">&lt;meta</span> <span class="hl-attr">name</span>=<span class="hl-val">"description"</span> <span class="hl-attr">content</span>=<span class="hl-val">"Freshly roasted coffee weekly, free WiFi, open 7:00-21:00, near BTS Asok"</span><span class="hl-tag">&gt;</span>
+
+<span class="hl-comment">&lt;!-- Canonical: prevent duplicate content --&gt;</span>
+<span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-val">"canonical"</span> <span class="hl-attr">href</span>=<span class="hl-val">"https://www.aunjai-cafe.com/menu"</span><span class="hl-tag">&gt;</span>
+
+<span class="hl-comment">&lt;!-- Open Graph: preview on Facebook/Line --&gt;</span>
+<span class="hl-tag">&lt;meta</span> <span class="hl-attr">property</span>=<span class="hl-val">"og:title"</span> <span class="hl-attr">content</span>=<span class="hl-val">"AunJai Café"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;meta</span> <span class="hl-attr">property</span>=<span class="hl-val">"og:image"</span> <span class="hl-attr">content</span>=<span class="hl-val">"https://aunjai-cafe.com/og-image.jpg"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;meta</span> <span class="hl-attr">property</span>=<span class="hl-val">"og:url"</span> <span class="hl-attr">content</span>=<span class="hl-val">"https://aunjai-cafe.com"</span><span class="hl-tag">&gt;</span>
+
+<span class="hl-comment">&lt;!-- Twitter Card --&gt;</span>
+<span class="hl-tag">&lt;meta</span> <span class="hl-attr">name</span>=<span class="hl-val">"twitter:card"</span> <span class="hl-attr">content</span>=<span class="hl-val">"summary_large_image"</span><span class="hl-tag">&gt;</span></pre></div>
+  </div>
+</section>
+
+<!-- ─── S5: Structured Data ─── -->
+
+<section class="section" id="s5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div class="section-title-wrap">
+      <h2>Structured Data (Schema.org)</h2>
+      <p>Unlock Rich Snippets — star ratings, opening hours, prices appear in Google directly</p>
+    </div>
+  </div>
+
+  <!-- SVG: Before/After SERP -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <text x="30" y="24" fill="#f38ba8" font-size="10" font-weight="700" font-family="system-ui">❌ No Schema</text>
+      <rect x="30" y="34" width="290" height="70" rx="8" fill="white"/>
+      <text x="46" y="54" fill="#5f6368" font-size="9" font-family="system-ui">aunjai-cafe.com</text>
+      <text x="46" y="70" fill="#1a0dab" font-size="12" font-family="system-ui">AunJai Café</text>
+      <text x="46" y="88" fill="#4d5156" font-size="10" font-family="system-ui">Freshly roasted coffee...</text>
+      <text x="175" y="122" text-anchor="middle" fill="#f38ba8" font-size="9" font-family="system-ui">Low CTR — no special data</text>
+
+      <line x1="350" y1="20" x2="350" y2="160" stroke="#1f2d42" stroke-width="1" stroke-dasharray="4,3"/>
+
+      <text x="380" y="24" fill="#a6e3a1" font-size="10" font-weight="700" font-family="system-ui">✅ With Schema.org</text>
+      <rect x="380" y="34" width="290" height="100" rx="8" fill="white"/>
+      <text x="396" y="54" fill="#5f6368" font-size="9" font-family="system-ui">aunjai-cafe.com › Home</text>
+      <text x="396" y="70" fill="#1a0dab" font-size="12" font-family="system-ui">AunJai Café | Fresh Coffee BTS Asok</text>
+      <text x="396" y="85" fill="#f5a623" font-size="10" font-family="system-ui">★★★★★ 4.8 · (247) · Café · Open now</text>
+      <text x="396" y="100" fill="#4d5156" font-size="10" font-family="system-ui">Freshly roasted coffee weekly, free WiFi...</text>
+      <rect x="396" y="108" width="260" height="18" rx="3" fill="#f8f9fa"/>
+      <text x="402" y="120" fill="#4d5156" font-size="8" font-family="system-ui">📍 Sukhumvit · ☎ 02-123-4567 · Open until 21:00</text>
+      <text x="525" y="148" text-anchor="middle" fill="#a6e3a1" font-size="9" font-family="system-ui">CTR increases 20-30% without changing Rank</text>
+    </svg>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>Schema.org — CafeOrCoffeeShop</span><span class="code-lang">JSON-LD</span></div>
+    <div class="code-body"><pre><span class="hl-tag">&lt;script</span> <span class="hl-attr">type</span>=<span class="hl-val">"application/ld+json"</span><span class="hl-tag">&gt;</span>
+<span class="hl-key">{</span>
+  <span class="hl-str">"@context"</span>: <span class="hl-val">"https://schema.org"</span>,
+  <span class="hl-str">"@type"</span>: <span class="hl-val">"CafeOrCoffeeShop"</span>,
+  <span class="hl-str">"name"</span>: <span class="hl-val">"AunJai Café"</span>,
+  <span class="hl-str">"telephone"</span>: <span class="hl-val">"+66-2-123-4567"</span>,
+  <span class="hl-str">"address"</span>: <span class="hl-key">{</span>
+    <span class="hl-str">"@type"</span>: <span class="hl-val">"PostalAddress"</span>,
+    <span class="hl-str">"streetAddress"</span>: <span class="hl-val">"123 Sukhumvit Rd"</span>,
+    <span class="hl-str">"addressCountry"</span>: <span class="hl-val">"TH"</span>
+  <span class="hl-key">}</span>,
+  <span class="hl-str">"openingHoursSpecification"</span>: <span class="hl-key">[{</span>
+    <span class="hl-str">"@type"</span>: <span class="hl-val">"OpeningHoursSpecification"</span>,
+    <span class="hl-str">"dayOfWeek"</span>: [<span class="hl-val">"Monday"</span>, <span class="hl-val">"..."</span>, <span class="hl-val">"Sunday"</span>],
+    <span class="hl-str">"opens"</span>: <span class="hl-val">"07:00"</span>, <span class="hl-str">"closes"</span>: <span class="hl-val">"21:00"</span>
+  <span class="hl-key">}]</span>,
+  <span class="hl-str">"aggregateRating"</span>: <span class="hl-key">{</span>
+    <span class="hl-str">"@type"</span>: <span class="hl-val">"AggregateRating"</span>,
+    <span class="hl-str">"ratingValue"</span>: <span class="hl-num">4.8</span>, <span class="hl-str">"reviewCount"</span>: <span class="hl-num">247</span>
+  <span class="hl-key">}</span>
+<span class="hl-key">}</span>
+<span class="hl-tag">&lt;/script&gt;</span></pre></div>
+  </div>
+</section>
+
+<!-- ─── S6: Image Optimization ─── -->
+
+<section class="section" id="s6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div class="section-title-wrap">
+      <h2>Image Optimization</h2>
+      <p>What devs often overlook — affects LCP, CLS and image search ranking</p>
+    </div>
+  </div>
+
+  <!-- SVG: file size comparison -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <text x="350" y="24" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="700" font-family="system-ui">File Size Comparison (same image 1920×1080)</text>
+
+      <!-- JPEG -->
+      <rect x="40" y="40" width="200" height="32" rx="4" fill="#ef4444" opacity=".85"/>
+      <text x="50" y="61" fill="white" font-size="11" font-weight="700" font-family="system-ui">JPEG — 2.4 MB</text>
+      <text x="250" y="61" fill="#f38ba8" font-size="10" font-family="system-ui">← Baseline</text>
+
+      <!-- WebP -->
+      <rect x="40" y="82" width="100" height="32" rx="4" fill="#f59e0b" opacity=".85"/>
+      <text x="50" y="103" fill="white" font-size="11" font-weight="700" font-family="system-ui">WebP — 1.1 MB</text>
+      <text x="150" y="103" fill="#fbbf24" font-size="10" font-family="system-ui">← reduced 54%</text>
+
+      <!-- AVIF -->
+      <rect x="40" y="124" width="56" height="32" rx="4" fill="#10b981" opacity=".85"/>
+      <text x="50" y="145" fill="white" font-size="10" font-weight="700" font-family="system-ui">AVIF</text>
+      <text x="106" y="145" fill="#6ee7b7" font-size="10" font-family="system-ui">0.6 MB — reduced 75% ✅</text>
+
+      <!-- Right: checklist -->
+      <text x="430" y="50" fill="#a6e3a1" font-size="10" font-weight="700" font-family="system-ui">✓ alt on every image — describe accurately</text>
+      <text x="430" y="70" fill="#a6e3a1" font-size="10" font-weight="700" font-family="system-ui">✓ width + height every time</text>
+      <text x="430" y="90" fill="#a6e3a1" font-size="10" font-weight="700" font-family="system-ui">✓ loading="lazy" below fold</text>
+      <text x="430" y="110" fill="#a6e3a1" font-size="10" font-weight="700" font-family="system-ui">✓ fetchpriority="high" hero</text>
+      <text x="430" y="130" fill="#a6e3a1" font-size="10" font-weight="700" font-family="system-ui">✓ &lt;picture&gt; AVIF → WebP → JPEG</text>
+    </svg>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>Image Best Practice</span><span class="code-lang">HTML</span></div>
+    <div class="code-body"><pre><span class="hl-tag">&lt;picture&gt;</span>
+  <span class="hl-tag">&lt;source</span> <span class="hl-attr">srcset</span>=<span class="hl-val">"/coffee.avif"</span> <span class="hl-attr">type</span>=<span class="hl-val">"image/avif"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;source</span> <span class="hl-attr">srcset</span>=<span class="hl-val">"/coffee.webp"</span> <span class="hl-attr">type</span>=<span class="hl-val">"image/webp"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;img</span>
+    <span class="hl-attr">src</span>=<span class="hl-val">"/coffee.jpg"</span>
+    <span class="hl-attr">alt</span>=<span class="hl-val">"Latte art, AunJai Café Sukhumvit"</span>
+    <span class="hl-attr">width</span>=<span class="hl-val">"800"</span> <span class="hl-attr">height</span>=<span class="hl-val">"600"</span>
+    <span class="hl-attr">loading</span>=<span class="hl-val">"lazy"</span>
+  <span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;/picture&gt;</span></pre></div>
+  </div>
+</section>
+
+<!-- ─── S7: Rendering Strategy ─── -->
+
+<section class="section" id="s7">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <div class="section-title-wrap">
+      <h2>Rendering Strategy</h2>
+      <p>Choose correctly — affects SEO more than you think</p>
+    </div>
+  </div>
+
+  <!-- SVG: Strategy comparison -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <!-- SSG -->
+      <rect x="20" y="20" width="148" height="140" rx="10" fill="#1a2d1a" stroke="#10b981" stroke-width="1.5"/>
+      <text x="94" y="44" text-anchor="middle" fill="#a6e3a1" font-size="11" font-weight="800" font-family="system-ui">SSG</text>
+      <text x="94" y="60" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Static Site Gen</text>
+      <text x="94" y="80" text-anchor="middle" fill="#10b981" font-size="22" font-family="system-ui">★★★★★</text>
+      <text x="94" y="100" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="700" font-family="system-ui">SEO ★★★★★</text>
+      <text x="94" y="116" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="700" font-family="system-ui">Speed ★★★★★</text>
+      <text x="94" y="140" text-anchor="middle" fill="#45475a" font-size="8" font-family="system-ui">Blog, Docs, Landing</text>
+      <text x="94" y="154" text-anchor="middle" fill="#45475a" font-size="8" font-family="system-ui">page</text>
+
+      <!-- SSR -->
+      <rect x="183" y="20" width="148" height="140" rx="10" fill="#1a2d1a" stroke="#10b981" stroke-width="1"/>
+      <text x="257" y="44" text-anchor="middle" fill="#a6e3a1" font-size="11" font-weight="800" font-family="system-ui">SSR</text>
+      <text x="257" y="60" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Server-Side Render</text>
+      <text x="257" y="80" text-anchor="middle" fill="#10b981" font-size="22" font-family="system-ui">★★★★★</text>
+      <text x="257" y="100" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="700" font-family="system-ui">SEO ★★★★★</text>
+      <text x="257" y="116" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="700" font-family="system-ui">Speed ★★★★</text>
+      <text x="257" y="140" text-anchor="middle" fill="#45475a" font-size="8" font-family="system-ui">E-commerce, News,</text>
+      <text x="257" y="154" text-anchor="middle" fill="#45475a" font-size="8" font-family="system-ui">Dynamic content</text>
+
+      <!-- ISR -->
+      <rect x="346" y="20" width="148" height="140" rx="10" fill="#1a2235" stroke="#3b82f6" stroke-width="1"/>
+      <text x="420" y="44" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="800" font-family="system-ui">ISR</text>
+      <text x="420" y="60" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Incremental Static</text>
+      <text x="420" y="80" text-anchor="middle" fill="#10b981" font-size="22" font-family="system-ui">★★★★★</text>
+      <text x="420" y="100" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="700" font-family="system-ui">SEO ★★★★★</text>
+      <text x="420" y="116" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="700" font-family="system-ui">Speed ★★★★★</text>
+      <text x="420" y="140" text-anchor="middle" fill="#45475a" font-size="8" font-family="system-ui">Data changes occasionally</text>
+      <text x="420" y="154" text-anchor="middle" fill="#45475a" font-size="8" font-family="system-ui">but not frequently</text>
+
+      <!-- CSR -->
+      <rect x="509" y="20" width="170" height="140" rx="10" fill="#2d1b1b" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="594" y="44" text-anchor="middle" fill="#f38ba8" font-size="11" font-weight="800" font-family="system-ui">CSR ⚠️</text>
+      <text x="594" y="60" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Client-Side Render</text>
+      <text x="594" y="80" text-anchor="middle" fill="#ef4444" font-size="16" font-family="system-ui">★★</text>
+      <text x="594" y="100" text-anchor="middle" fill="#f38ba8" font-size="9" font-weight="700" font-family="system-ui">SEO ★★ ⚠️</text>
+      <text x="594" y="116" text-anchor="middle" fill="#fca5a5" font-size="9" font-weight="700" font-family="system-ui">Speed ★★★</text>
+      <text x="594" y="136" text-anchor="middle" fill="#45475a" font-size="8" font-family="system-ui">Dashboard, App that</text>
+      <text x="594" y="150" text-anchor="middle" fill="#45475a" font-size="8" font-family="system-ui">require login only</text>
+    </svg>
+  </div>
+
+  <div class="alert warn">⚠️ Simple rule: if content needs to be indexed by Google → never use pure CSR</div>
+</section>
+
+<!-- ─── S8: Checklist ─── -->
+
+<section class="section" id="s8">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <div class="section-title-wrap">
+      <h2>Technical Checklist Before Launch</h2>
+      <p>Complete every item before go-live</p>
+    </div>
+  </div>
+
+  <ul class="checklist">
+    <li><span class="ck">✓</span>HTTPS on production</li>
+    <li><span class="ck">✓</span>Unique &lt;title&gt; and meta description on every page</li>
+    <li><span class="ck">✓</span>Canonical tag on every page</li>
+    <li><span class="ck">✓</span>Sitemap.xml created and submitted in Google Search Console</li>
+    <li><span class="ck">✓</span>robots.txt is not blocking important pages</li>
+    <li><span class="ck">✓</span>Structured data passes Rich Results Test</li>
+    <li><span class="ck">✓</span>Core Web Vitals pass Lighthouse (LCP &lt; 2.5s, CLS &lt; 0.1)</li>
+    <li><span class="ck">✓</span>Every image has alt text</li>
+    <li><span class="ck">✓</span>Clean URL structure, no strange parameters</li>
+    <li><span class="ck">✓</span>404 page has proper HTTP status code</li>
+  </ul>
+</section>
+
+<!-- ─── S9: Tools ─── -->
+
+<section class="section" id="s9">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <div class="section-title-wrap">
+      <h2>Tools You Need to Know</h2>
+      <p>All of these are free to use</p>
+    </div>
+  </div>
+
+  <!-- SVG: tool icons -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 100" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <!-- GSC -->
+      <rect x="20" y="15" width="100" height="70" rx="8" fill="#1a2235" stroke="#1f2d42"/>
+      <text x="70" y="45" text-anchor="middle" font-size="22">🔍</text>
+      <text x="70" y="62" text-anchor="middle" fill="#93c5fd" font-size="8" font-weight="700" font-family="system-ui">Search Console</text>
+      <text x="70" y="76" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">Free</text>
+
+      <!-- PSI -->
+      <rect x="135" y="15" width="100" height="70" rx="8" fill="#1a2235" stroke="#1f2d42"/>
+      <text x="185" y="45" text-anchor="middle" font-size="22">⚡</text>
+      <text x="185" y="62" text-anchor="middle" fill="#93c5fd" font-size="8" font-weight="700" font-family="system-ui">PageSpeed Insights</text>
+      <text x="185" y="76" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">Free</text>
+
+      <!-- Lighthouse -->
+      <rect x="250" y="15" width="100" height="70" rx="8" fill="#1a2235" stroke="#1f2d42"/>
+      <text x="300" y="45" text-anchor="middle" font-size="22">🏠</text>
+      <text x="300" y="62" text-anchor="middle" fill="#93c5fd" font-size="8" font-weight="700" font-family="system-ui">Lighthouse</text>
+      <text x="300" y="76" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">Free (DevTools)</text>
+
+      <!-- Rich Results -->
+      <rect x="365" y="15" width="100" height="70" rx="8" fill="#1a2235" stroke="#1f2d42"/>
+      <text x="415" y="45" text-anchor="middle" font-size="22">📋</text>
+      <text x="415" y="62" text-anchor="middle" fill="#93c5fd" font-size="8" font-weight="700" font-family="system-ui">Rich Results Test</text>
+      <text x="415" y="76" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">Free</text>
+
+      <!-- Screaming Frog -->
+      <rect x="480" y="15" width="100" height="70" rx="8" fill="#1a2235" stroke="#1f2d42"/>
+      <text x="530" y="45" text-anchor="middle" font-size="22">🐸</text>
+      <text x="530" y="62" text-anchor="middle" fill="#93c5fd" font-size="8" font-weight="700" font-family="system-ui">Screaming Frog</text>
+      <text x="530" y="76" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">Free (500 URL)</text>
+
+      <!-- Ahrefs -->
+      <rect x="595" y="15" width="85" height="70" rx="8" fill="#1a2235" stroke="#1f2d42"/>
+      <text x="637" y="45" text-anchor="middle" font-size="22">💰</text>
+      <text x="637" y="62" text-anchor="middle" fill="#93c5fd" font-size="8" font-weight="700" font-family="system-ui">Ahrefs/SEMrush</text>
+      <text x="637" y="76" text-anchor="middle" fill="#f59e0b" font-size="8" font-family="system-ui">Paid</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ─── S10: Priority ─── -->
+
+<section class="section" id="s10">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <div class="section-title-wrap">
+      <h2>SEO by Rendering Strategy — Real-World Implementation</h2>
+      <p>Same concept — but code style differs by stack</p>
+    </div>
+  </div>
+
+  <!-- SVG: Flow comparison SSR vs CSR -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <!-- SSR/SSG flow -->
+      <text x="175" y="24" text-anchor="middle" fill="#a6e3a1" font-size="11" font-weight="700" font-family="system-ui">SSR / SSG / Next.js ✅</text>
+      <rect x="30" y="36" width="90" height="30" rx="6" fill="#1a2d1a" stroke="#10b981"/>
+      <text x="75" y="56" text-anchor="middle" fill="#a6e3a1" font-size="10" font-family="system-ui">Browser</text>
+      <line x1="120" y1="51" x2="145" y2="51" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <rect x="145" y="36" width="90" height="30" rx="6" fill="#1a2d1a" stroke="#10b981"/>
+      <text x="190" y="56" text-anchor="middle" fill="#a6e3a1" font-size="10" font-family="system-ui">Server</text>
+      <line x1="235" y1="51" x2="260" y2="51" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <rect x="260" y="36" width="90" height="30" rx="6" fill="#1a2d1a" stroke="#10b981"/>
+      <text x="305" y="51" text-anchor="middle" fill="#a6e3a1" font-size="9" font-family="system-ui">Pre-rendered HTML</text>
+      <text x="305" y="63" text-anchor="middle" fill="#a6e3a1" font-size="9" font-family="system-ui">+ Meta Tags</text>
+      <text x="175" y="88" text-anchor="middle" fill="#a6e3a1" font-size="9" font-family="system-ui">Bot receives complete HTML immediately</text>
+      <text x="175" y="104" text-anchor="middle" fill="#a6e3a1" font-size="10" font-weight="700" font-family="system-ui">→ Can be indexed ✅</text>
+
+      <!-- Next.js code example -->
+      <rect x="30" y="120" width="320" height="64" rx="8" fill="#0d1117" stroke="#1f2d42"/>
+      <text x="46" y="140" fill="#45475a" font-size="9" font-family="monospace">// Next.js App Router</text>
+      <text x="46" y="156" fill="#cba6f7" font-size="9" font-family="monospace">export const</text>
+      <text x="115" y="156" fill="#e2e8f0" font-size="9" font-family="monospace">metadata: Metadata = {'{'}</text>
+      <text x="60" y="172" fill="#f9e2af" font-size="9" font-family="monospace">title: 'Page Title | Brand',</text>
+
+      <!-- Divider -->
+      <line x1="370" y1="20" x2="370" y2="195" stroke="#1f2d42" stroke-width="1" stroke-dasharray="4,3"/>
+
+      <!-- CSR flow -->
+      <text x="535" y="24" text-anchor="middle" fill="#f38ba8" font-size="11" font-weight="700" font-family="system-ui">CSR / SPA ⚠️</text>
+      <rect x="390" y="36" width="90" height="30" rx="6" fill="#2d1b1b" stroke="#ef4444"/>
+      <text x="435" y="56" text-anchor="middle" fill="#f38ba8" font-size="10" font-family="system-ui">Browser</text>
+      <line x1="480" y1="51" x2="505" y2="51" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <rect x="505" y="36" width="90" height="30" rx="6" fill="#2d1b1b" stroke="#ef4444"/>
+      <text x="550" y="51" text-anchor="middle" fill="#f38ba8" font-size="9" font-family="system-ui">Empty HTML</text>
+      <text x="550" y="63" text-anchor="middle" fill="#f38ba8" font-size="9" font-family="system-ui">+ JS bundle</text>
+      <text x="535" y="88" text-anchor="middle" fill="#f38ba8" font-size="9" font-family="system-ui">Bot receives empty HTML, must wait for JS</text>
+      <text x="535" y="104" text-anchor="middle" fill="#f38ba8" font-size="10" font-weight="700" font-family="system-ui">→ May not be indexed ⚠️</text>
+
+      <!-- SPA code example -->
+      <rect x="390" y="120" width="290" height="64" rx="8" fill="#0d1117" stroke="#1f2d42"/>
+      <text x="406" y="140" fill="#45475a" font-size="9" font-family="monospace">&lt;!-- This is all the Bot sees --&gt;</text>
+      <text x="406" y="156" fill="#89b4fa" font-size="9" font-family="monospace">&lt;body&gt;</text>
+      <text x="420" y="172" fill="#f38ba8" font-size="9" font-family="monospace">&lt;div id="root"&gt;&lt;/div&gt;</text>
+
+      <defs>
+        <marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#10b981"/>
+        </marker>
+        <marker id="arr3" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#ef4444"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">10.1 Next.js — Static & Dynamic Metadata</h3>
+  <div class="code-wrap">
+    <div class="code-header"><span>Static Metadata</span><span class="code-lang">TSX</span></div>
+    <div class="code-body"><pre><span class="hl-comment">// app/menu/page.tsx</span>
+<span class="hl-fn">import</span> { Metadata } <span class="hl-fn">from</span> <span class="hl-val">'next'</span>
+
+<span class="hl-fn">export const</span> metadata: Metadata = <span class="hl-key">{</span>
+  title: <span class="hl-val">'Coffee Menu | AunJai Café'</span>,
+  description: <span class="hl-val">'Freshly roasted coffee weekly, starting at 65 THB'</span>,
+  alternates: <span class="hl-key">{</span> canonical: <span class="hl-val">'https://aunjai-cafe.com/menu'</span> <span class="hl-key">}</span>,
+<span class="hl-key">}</span></pre></div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>Dynamic Metadata — fetched from API</span><span class="code-lang">TSX</span></div>
+    <div class="code-body"><pre><span class="hl-comment">// app/menu/[slug]/page.tsx</span>
+<span class="hl-fn">export async function</span> <span class="hl-fn">generateMetadata</span>({ params }) <span class="hl-key">{</span>
+  <span class="hl-fn">const</span> item = <span class="hl-fn">await</span> fetch(<span class="hl-val">`https://api.aunjai.com/menu/${params.slug}`</span>)
+    .then(r => r.json())
+
+  <span class="hl-fn">return</span> <span class="hl-key">{</span>
+    title: <span class="hl-val">`${item.name} | AunJai Café`</span>,
+    description: item.description,
+    openGraph: <span class="hl-key">{</span> images: [item.imageUrl] <span class="hl-key">}</span>,
+  <span class="hl-key">}</span>
+<span class="hl-key">}</span></pre></div>
+  </div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">10.2 SPA — Solutions when migration is not possible</h3>
+  <div class="code-wrap">
+    <div class="code-header"><span>Dynamic Rendering — nginx config</span><span class="code-lang">nginx</span></div>
+    <div class="code-body"><pre><span class="hl-comment"># Detect User-Agent and route Bot to prerender service</span>
+map $http_user_agent $is_bot <span class="hl-key">{</span>
+  default     <span class="hl-num">0</span>;
+  ~Googlebot  <span class="hl-num">1</span>;
+  ~bingbot    <span class="hl-num">1</span>;
+<span class="hl-key">}</span>
+server <span class="hl-key">{</span>
+  location / <span class="hl-key">{</span>
+    <span class="hl-fn">if</span> ($is_bot) <span class="hl-key">{</span>
+      proxy_pass http://prerender-service; <span class="hl-comment"># Pre-rendered HTML</span>
+    <span class="hl-key">}</span>
+    try_files $uri /index.html; <span class="hl-comment"># Regular users get SPA</span>
+  <span class="hl-key">}</span>
+<span class="hl-key">}</span></pre></div>
+  </div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">10.3 Summary — Who Does What</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-label" style="color:var(--accent)"><div class="dot" style="background:var(--accent)"></div>Frontend Dev</div>
+      <ul style="list-style:none;font-size:0.8rem;display:flex;flex-direction:column;gap:0.35rem;color:var(--muted)">
+        <li>→ Choose Rendering Strategy</li>
+        <li>→ Dynamic Meta + OG tags</li>
+        <li>→ Structured Data component</li>
+        <li>→ Image optimization</li>
+        <li>→ Core Web Vitals</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label" style="color:var(--accent2)"><div class="dot" style="background:var(--accent2)"></div>Backend Dev</div>
+      <ul style="list-style:none;font-size:0.8rem;display:flex;flex-direction:column;gap:0.35rem;color:var(--muted)">
+        <li>→ Correct HTTP Status Code</li>
+        <li>→ Redirect 301 / 302 logic</li>
+        <li>→ API sends complete SEO fields</li>
+        <li>→ Generate sitemap from DB</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label" style="color:var(--warn)"><div class="dot" style="background:var(--warn)"></div>DevOps / Infra</div>
+      <ul style="list-style:none;font-size:0.8rem;display:flex;flex-direction:column;gap:0.35rem;color:var(--muted)">
+        <li>→ CDN + Cache headers</li>
+        <li>→ HTTPS</li>
+        <li>→ Dynamic Rendering setup</li>
+        <li>→ Server response time</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert info" style="margin-top:2rem">
+    💡 Related files: <strong>seo-demo.html</strong> — Interactive Before/After demo · <strong>brewbox-nextjs.zip</strong> — Next.js project that runs for real
+  </div>
+</section>
+
+<!-- ─── S12: Content SEO ─── -->
+
+<section class="section" id="s11">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <div class="section-title-wrap">
+      <h2>Content SEO — The Pillar That Technical SEO Alone Can't Replace</h2>
+      <p>Technical SEO makes a page readable to Google — but content that actually answers what people search for is what makes it rank</p>
+    </div>
+  </div>
+
+  <!-- SVG: Two pillars comparison -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <text x="350" y="28" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="700" font-family="system-ui">SEO has 2 pillars — neither one works alone</text>
+
+      <!-- Technical pillar -->
+      <rect x="60" y="48" width="260" height="140" rx="10" fill="#1a2235" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="190" y="74" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="800" font-family="system-ui">Technical SEO</text>
+      <text x="190" y="92" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">(Sections 1-11 in this doc)</text>
+      <text x="80" y="114" fill="#a6c8f5" font-size="9" font-family="system-ui">✓ HTML, Meta, Schema</text>
+      <text x="80" y="130" fill="#a6c8f5" font-size="9" font-family="system-ui">✓ Core Web Vitals</text>
+      <text x="80" y="146" fill="#a6c8f5" font-size="9" font-family="system-ui">✓ Rendering strategy</text>
+      <text x="190" y="172" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Makes Google "able to read the site"</text>
+
+      <!-- Plus sign -->
+      <text x="350" y="125" text-anchor="middle" fill="#64748b" font-size="24" font-weight="300" font-family="system-ui">+</text>
+
+      <!-- Content pillar -->
+      <rect x="380" y="48" width="260" height="140" rx="10" fill="#1a2d1a" stroke="#10b981" stroke-width="1.5"/>
+      <text x="510" y="74" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="800" font-family="system-ui">Content SEO</text>
+      <text x="510" y="92" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">(Section 12 — newly added)</text>
+      <text x="400" y="114" fill="#a6e3a1" font-size="9" font-family="system-ui">✓ Keyword research</text>
+      <text x="400" y="130" fill="#a6e3a1" font-size="9" font-family="system-ui">✓ Search intent matching</text>
+      <text x="400" y="146" fill="#a6e3a1" font-size="9" font-family="system-ui">✓ E-E-A-T</text>
+      <text x="510" y="172" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Makes Google "want to recommend it"</text>
+
+      <text x="350" y="210" text-anchor="middle" fill="#f5a623" font-size="10" font-weight="700" font-family="system-ui">Perfect technical + weak content = still won't rank</text>
+    </svg>
+  </div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">11.1 Keyword Research — Know Before You Write, Don't Guess</h3>
+  <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1rem">Before writing any article, you need to know what people actually search for — not what you assume they'd search for.</p>
+
+  <ul class="checklist">
+    <li><span class="ck">→</span><strong>Google Keyword Planner</strong> — Free, requires a Google Ads account (no need to run actual ads to view data)</li>
+    <li><span class="ck">→</span><strong>Google Search Console → Performance</strong> — see queries you already rank for but haven't fully optimized</li>
+    <li><span class="ck">→</span><strong>AnswerThePublic</strong> — see real questions people search around a single keyword</li>
+    <li><span class="ck">→</span><strong>Google Autocomplete</strong> — type a term and read the suggestions, the easiest free method there is</li>
+  </ul>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">11.2 Search Intent — Write to Match What People Actually Want</h3>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Intent</th><th>Example keyword</th><th>What to write</th></tr>
+      <tr><td><span class="tag blue">Informational</span></td><td>"how to brew espresso"</td><td>Step-by-step how-to article</td></tr>
+      <tr><td><span class="tag purple">Navigational</span></td><td>"AunJai Café"</td><td>Clear, easy-to-find brand homepage</td></tr>
+      <tr><td><span class="tag warn">Commercial</span></td><td>"best coffee capsule brand"</td><td>Comparison/review article</td></tr>
+      <tr><td><span class="tag good">Transactional</span></td><td>"buy coffee capsules free shipping"</td><td>Product page with clear buy button</td></tr>
+    </table>
+  </div>
+
+  <div class="alert warn">⚠️ Common mistake: writing a sales-focused (transactional) page for a purely informational keyword — Google will see the content as a mismatch for what the searcher wanted, and won't push it up in rankings.</div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">11.3 E-E-A-T — The Framework Google Uses to Assess Content Quality</h3>
+  <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1rem">E-E-A-T stands for Experience, Expertise, Authoritativeness, Trust — a framework from Google's Search Quality Rater Guidelines</p>
+
+  <div class="alert info">💡 Important nuance: E-E-A-T is <strong>not a direct, measurable ranking factor</strong> with its own score. It's a conceptual framework used by both human raters and Google's algorithms to assess overall site quality — especially for <strong>YMYL</strong> content (Your Money or Your Life — health, finance, legal, safety, and as of a 2025 update, content related to elections/public institutions too), where Google applies its strictest standards.</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label" style="color:var(--accent)"><div class="dot" style="background:var(--accent)"></div>Experience + Expertise</div>
+      <ul style="list-style:none;font-size:0.82rem;display:flex;flex-direction:column;gap:0.4rem;color:var(--muted)">
+        <li>→ Real photos from testing a product</li>
+        <li>→ Author bio with real name + credentials</li>
+        <li>→ Not attributed to a vague "Team"</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label" style="color:var(--good)"><div class="dot" style="background:var(--good)"></div>Authoritativeness + Trust</div>
+      <ul style="list-style:none;font-size:0.82rem;display:flex;flex-direction:column;gap:0.4rem;color:var(--muted)">
+        <li>→ Backlinks from credible sites in the field</li>
+        <li>→ HTTPS + clear contact info</li>
+        <li>→ Cite verifiable sources/statistics</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert warn" style="margin-top:1rem">⚠️ AI-generated content: Google doesn't ban AI-assisted writing, but content that reads as purely AI-generated, with no human review and no original insight, tends to be classified as low quality. What Google cares about is whether the final result is accurate, trustworthy, and has someone accountable for it.</div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">11.4 Good Content Structure</h3>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>Good Article Structure</span><span class="code-lang">Outline</span></div>
+    <div class="code-body"><pre><span class="hl-good">h1:</span> Main heading (matches search intent)
+  Opening paragraph: <span class="hl-comment">answer the core question immediately, no preamble</span>
+  <span class="hl-good">h2:</span> Sub-topic 1
+    Detailed content
+  <span class="hl-good">h2:</span> Sub-topic 2
+    Detailed content
+  Summary / FAQ at the end</pre></div>
+  </div>
+
+  <ul class="checklist">
+    <li><span class="ck">✓</span>Answer the core question within the first 1-2 sentences — Google's AI Overview wants a fast answer</li>
+    <li><span class="ck">✓</span>Use h2/h3 to split content by questions readers likely have, not by how you'd prefer to ramble</li>
+    <li><span class="ck">✓</span>Length isn't a quality signal — short and complete beats long and circular</li>
+    <li><span class="ck">✓</span>Updating stale content beats abandoning it</li>
+  </ul>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">11.5 Internal Linking</h3>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>Internal Link — Right vs Wrong</span><span class="code-lang">HTML</span></div>
+    <div class="code-body"><pre><span class="hl-comment">&lt;!-- ✅ Good: descriptive anchor text --&gt;</span>
+<span class="hl-good">&lt;a</span> <span class="hl-attr">href</span>=<span class="hl-val">"/menu/single-origin"</span><span class="hl-good">&gt;</span>Single Origin coffee from Ethiopia<span class="hl-good">&lt;/a&gt;</span>
+
+<span class="hl-comment">&lt;!-- ❌ Bad: anchor text says nothing --&gt;</span>
+<span class="hl-bad">&lt;a</span> <span class="hl-attr">href</span>=<span class="hl-val">"/menu/single-origin"</span><span class="hl-bad">&gt;</span>Click here<span class="hl-bad">&lt;/a&gt;</span></pre></div>
+  </div>
+
+  <div class="section-title">How to Verify</div>
+  <ul class="checklist">
+    <li><span class="ck">1</span>Check keywords you already rank for via Search Console → Performance → find queries at position 11-20 worth optimizing</li>
+    <li><span class="ck">2</span>Search your target keyword on Google directly, see what kind of content ranks 1-5, build something comparable</li>
+    <li><span class="ck">3</span>Use Hemingway Editor to check readability and flag overly long sentences</li>
+    <li><span class="ck">4</span>Track results in Search Console over a 4-8 week window after publishing — SEO is a long-term process</li>
+  </ul>
+</section>
+
+<!-- ─── S13: Off-Page SEO ─── -->
+
+<section class="section" id="s12">
+  <div class="section-header">
+    <span class="section-num">12</span>
+    <div class="section-title-wrap">
+      <h2>Off-Page SEO — What Happens Outside Your Website</h2>
+      <p>Signals you can't directly control, yet they account for more than 50% of total ranking factor weight</p>
+    </div>
+  </div>
+
+  <!-- SVG: backlink concept -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <text x="350" y="26" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="700" font-family="system-ui">A Backlink = A Recommendation From Another Site</text>
+
+      <!-- Your site center -->
+      <circle cx="350" cy="110" r="38" fill="#1a2d1a" stroke="#10b981" stroke-width="2"/>
+      <text x="350" y="106" text-anchor="middle" fill="#a6e3a1" font-size="10" font-weight="700" font-family="system-ui">Your</text>
+      <text x="350" y="120" text-anchor="middle" fill="#a6e3a1" font-size="10" font-weight="700" font-family="system-ui">Site</text>
+
+      <!-- Linking sites -->
+      <circle cx="150" cy="60" r="26" fill="#1a2235" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="150" y="64" text-anchor="middle" fill="#93c5fd" font-size="9" font-family="system-ui">News</text>
+      <line x1="174" y1="74" x2="318" y2="98" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrOffEn)"/>
+
+      <circle cx="120" cy="150" r="26" fill="#1a2235" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="120" y="154" text-anchor="middle" fill="#93c5fd" font-size="9" font-family="system-ui">Blog</text>
+      <line x1="144" y1="142" x2="316" y2="122" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrOffEn)"/>
+
+      <circle cx="550" cy="60" r="26" fill="#2d1b1b" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="550" y="56" text-anchor="middle" fill="#f38ba8" font-size="8" font-family="system-ui">Link</text>
+      <text x="550" y="68" text-anchor="middle" fill="#f38ba8" font-size="8" font-family="system-ui">farm</text>
+      <line x1="528" y1="74" x2="382" y2="98" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="465" y="80" fill="#f38ba8" font-size="8" font-family="system-ui">❌ Low quality</text>
+
+      <circle cx="580" cy="150" r="26" fill="#1a2235" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="580" y="154" text-anchor="middle" fill="#93c5fd" font-size="9" font-family="system-ui">Partner</text>
+      <line x1="556" y1="142" x2="384" y2="122" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrOffEn)"/>
+
+      <text x="350" y="185" text-anchor="middle" fill="#f5a623" font-size="9" font-weight="700" font-family="system-ui">1 backlink from a credible site &gt; 100 backlinks from spam</text>
+
+      <defs>
+        <marker id="arrOffEn" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#3b82f6"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">12.1 Backlinks — Why They Still Matter in 2025-2026</h3>
+  <div class="alert info">💡 Google emphasizes that <strong>quality matters far more than quantity</strong> — one backlink from a credible site is worth more than hundreds from low-quality directories. Buying/selling links directly violates Google's guidelines, risking a manual action or de-indexing.</div>
+
+  <ul class="checklist">
+    <li><span class="ck">→</span><strong>Digital PR</strong> — create content with original data/statistics and pitch it to media for citation</li>
+    <li><span class="ck">→</span><strong>Guest posting</strong> — write for other sites in your field in exchange for a backlink</li>
+    <li><span class="ck">→</span><strong>Resource page links</strong> — "best tools for..." list sites often welcome submissions</li>
+    <li><span class="ck">→</span><strong>Anchor text diversity</strong> — mix branded, exact match, natural language; don't repeat the same phrase</li>
+  </ul>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>Anchor Text — Right vs Wrong</span><span class="code-lang">HTML</span></div>
+    <div class="code-body"><pre><span class="hl-comment">&lt;!-- ✅ Descriptive and varied --&gt;</span>
+<span class="hl-good">&lt;a</span> <span class="hl-attr">href</span>=<span class="hl-val">"https://aunjai-cafe.com"</span><span class="hl-good">&gt;</span>AunJai Café<span class="hl-good">&lt;/a&gt;</span>
+
+<span class="hl-comment">&lt;!-- ❌ Same anchor everywhere, can look manipulative --&gt;</span>
+<span class="hl-bad">&lt;a</span> <span class="hl-attr">href</span>=<span class="hl-val">"https://aunjai-cafe.com"</span><span class="hl-bad">&gt;</span>Click here<span class="hl-bad">&lt;/a&gt;</span></pre></div>
+  </div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">12.2 Brand Mentions & Social Signals</h3>
+  <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1rem">While social shares aren't a direct ranking factor, heavily shared content has a higher chance of being cited as a backlink, and frequent mentions (e.g. on Wikipedia or major news outlets) are a trust signal Quality Raters factor into E-E-A-T</p>
+
+  <div class="section-title">How to Verify</div>
+  <ul class="checklist">
+    <li><span class="ck">1</span>Use Google Search Console → Links to see backlinks Google has already recorded (free)</li>
+    <li><span class="ck">2</span>Use Ahrefs Backlink Checker (partial free access) for a rough view of your backlink profile</li>
+    <li><span class="ck">3</span>Audit backlinks periodically — if you find a lot of spam links, use Search Console's Disavow Tool</li>
+    <li><span class="ck">4</span>Track unlinked brand mentions via Google Alerts and reach out to request a link</li>
+  </ul>
+</section>
+
+<!-- ─── S14: Local SEO ─── -->
+
+<section class="section" id="s13">
+  <div class="section-header">
+    <span class="section-num">13</span>
+    <div class="section-title-wrap">
+      <h2>Local SEO — Critical for Businesses with a Physical Location</h2>
+      <p>46% of Google searches have local intent · 76% of "near me" searchers visit a business within 24 hours</p>
+    </div>
+  </div>
+
+  <!-- SVG: Relevance/Distance/Prominence -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 190" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <text x="350" y="26" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="700" font-family="system-ui">3 Local Pack Ranking Factors (from Google)</text>
+
+      <rect x="30" y="46" width="200" height="120" rx="10" fill="#1a2235" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="130" y="74" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="800" font-family="system-ui">Relevance</text>
+      <text x="130" y="96" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Matches the search</text>
+      <text x="130" y="118" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="700" font-family="system-ui">✓ Fully controllable</text>
+      <text x="130" y="138" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Fill in GBP info</text>
+      <text x="130" y="152" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">completely</text>
+
+      <rect x="250" y="46" width="200" height="120" rx="10" fill="#1a2235" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="350" y="74" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="800" font-family="system-ui">Distance</text>
+      <text x="350" y="96" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">Distance from searcher</text>
+      <text x="350" y="118" text-anchor="middle" fill="#f5a623" font-size="9" font-weight="700" font-family="system-ui">✗ Not controllable</text>
+      <text x="350" y="138" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">except via</text>
+      <text x="350" y="152" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">service area</text>
+
+      <rect x="470" y="46" width="200" height="120" rx="10" fill="#1a2235" stroke="#10b981" stroke-width="1.5"/>
+      <text x="570" y="74" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="800" font-family="system-ui">Prominence</text>
+      <text x="570" y="96" text-anchor="middle" fill="#64748b" font-size="9" font-family="system-ui">How well-known/trusted</text>
+      <text x="570" y="118" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="700" font-family="system-ui">✓ Controllable</text>
+      <text x="570" y="138" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">via reviews,</text>
+      <text x="570" y="152" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">backlinks, citations</text>
+    </svg>
+  </div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">13.1 Google Business Profile (GBP)</h3>
+  <div class="alert info">💡 GBP signals account for the largest share of Local Pack ranking weight (≈32% per Whitespark/BrightLocal) — 100% complete profiles get 7x more clicks than incomplete ones</div>
+
+  <ul class="checklist">
+    <li><span class="ck">✓</span>Choose the most precise primary category (the single highest-impact factor)</li>
+    <li><span class="ck">✓</span>Add relevant secondary categories (4+ categories = better map ranking)</li>
+    <li><span class="ck">✓</span>Fill in name, address, phone, hours 100% completely</li>
+    <li><span class="ck">✓</span>Add real, regularly updated photos (more photos = +70% location visits)</li>
+  </ul>
+
+  <div class="alert warn">⚠️ Never stuff keywords into the business name beyond legal name/signage — Google's August 2025 Spam Update directly penalizes this ("Business Name Stuffing")</div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">13.2 Reviews</h3>
+  <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1rem">Reviews account for ≈16% of local ranking weight, and 87-98% of consumers read reviews before deciding — ask real customers for reviews, respond to every review professionally, never buy fake reviews</p>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">13.3 NAP Consistency</h3>
+  <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1rem">NAP = Name, Address, Phone must match across every platform — 64% of small businesses have at least one NAP inconsistency, which confuses Google and AI systems and reduces trust</p>
+
+  <div class="section-title">How to Verify</div>
+  <ul class="checklist">
+    <li><span class="ck">1</span>Search for your business using real customer terms on mobile, check if you appear in the Local Pack</li>
+    <li><span class="ck">2</span>Use Google Business Profile Performance to view monthly searches/clicks/direction requests</li>
+    <li><span class="ck">3</span>Check NAP consistency by searching name+phone and comparing data across sources</li>
+    <li><span class="ck">4</span>Check for duplicate GBP listings</li>
+  </ul>
+</section>
+
+<!-- ─── S15: Competitive & Measurement ─── -->
+
+<section class="section" id="s14">
+  <div class="section-header">
+    <span class="section-num">14</span>
+    <div class="section-title-wrap">
+      <h2>Competitive Analysis & Measurement — Closing the SEO Loop</h2>
+      <p>The 4 pillars covered so far mean nothing without knowing what competitors do and whether your efforts work</p>
+    </div>
+  </div>
+
+  <!-- SVG: 4 pillars summary -->
+  <div class="illustration">
+    <svg viewBox="0 0 700 170" xmlns="http://www.w3.org/2000/svg" style="background:#111827">
+      <text x="350" y="24" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="700" font-family="system-ui">Complete SEO — 4 Pillars + Measurement</text>
+
+      <rect x="20" y="40" width="155" height="90" rx="8" fill="#1a2235" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="97" y="68" text-anchor="middle" fill="#93c5fd" font-size="10" font-weight="700" font-family="system-ui">Technical</text>
+      <text x="97" y="84" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Sections 1-11</text>
+
+      <rect x="185" y="40" width="155" height="90" rx="8" fill="#1a2d1a" stroke="#10b981" stroke-width="1.5"/>
+      <text x="262" y="68" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="700" font-family="system-ui">Content</text>
+      <text x="262" y="84" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Section 12</text>
+
+      <rect x="350" y="40" width="155" height="90" rx="8" fill="#1a1530" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="427" y="68" text-anchor="middle" fill="#c4b5fd" font-size="10" font-weight="700" font-family="system-ui">Off-Page</text>
+      <text x="427" y="84" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Section 13</text>
+
+      <rect x="515" y="40" width="155" height="90" rx="8" fill="#2d2010" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="592" y="68" text-anchor="middle" fill="#fde68a" font-size="10" font-weight="700" font-family="system-ui">Local</text>
+      <text x="592" y="84" text-anchor="middle" fill="#64748b" font-size="8" font-family="system-ui">Section 14</text>
+
+      <text x="350" y="155" text-anchor="middle" fill="#f5a623" font-size="10" font-weight="700" font-family="system-ui">↓ Measure and benchmark against competitors continuously — Section 15 ↓</text>
+    </svg>
+  </div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">14.1 Content Gap Analysis</h3>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>Simple Gap Analysis Process</span><span class="code-lang">Process</span></div>
+    <div class="code-body"><pre>1. Identify your SEO competitors <span class="hl-comment">(may differ from business competitors)</span>
+2. Compare keywords competitors rank for that you don't
+3. Compare content depth
+4. Compare backlink profiles
+5. Prioritize: <span class="hl-good">high opportunity + achievable</span> first</pre></div>
+  </div>
+
+  <div class="alert warn">⚠️ Keyword gap analysis alone isn't enough — sometimes the real gap is a missing "journey stage," like having only sales content with nothing for the comparison stage</div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">14.2 SEO KPIs Worth Tracking</h3>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Level</th><th>KPI</th><th>Where to Measure</th></tr>
+      <tr><td><span class="tag blue">Visibility</span></td><td>Impressions, average position</td><td>Google Search Console</td></tr>
+      <tr><td><span class="tag purple">Capture</span></td><td>Clicks, CTR</td><td>Google Search Console</td></tr>
+      <tr><td><span class="tag warn">Engagement</span></td><td>Time on page, bounce rate</td><td>Google Analytics 4</td></tr>
+      <tr><td><span class="tag good">Outcome</span></td><td>Conversions, leads, sales</td><td>GA4 + CRM</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;color:var(--text)">14.3 What Timeline to Expect</h3>
+
+  <div class="code-wrap">
+    <div class="code-header"><span>SEO Timeline</span><span class="code-lang">Outline</span></div>
+    <div class="code-body"><pre><span class="hl-good">Months 1-3:</span>   Technical fixes deployed, content publishing begins
+<span class="hl-good">Months 3-6:</span>   Early movement on lower-competition keywords
+<span class="hl-good">Months 6-12:</span>  Clearer results overall, E-E-A-T and backlinks accumulate
+<span class="hl-good">12+ months:</span>  Compounding returns — old content keeps working</pre></div>
+  </div>
+
+  <div class="section-title">How to Verify</div>
+  <ul class="checklist">
+    <li><span class="ck">1</span>Set up Google Analytics 4 connected to Search Console for visibility + conversion data in one place</li>
+    <li><span class="ck">2</span>Build a list of 3-5 real SEO competitors and track their rankings monthly</li>
+    <li><span class="ck">3</span>Review results every 4-8 weeks, not daily — SEO has normal short-term volatility</li>
+    <li><span class="ck">4</span>Re-run a technical audit every quarter</li>
+  </ul>
+</section>
+
+<section class="section" id="s15">
+  <div class="section-header">
+    <span class="section-num">15</span>
+    <div class="section-title-wrap">
+      <h2>Priority Order</h2>
+      <p>Follow this order for the fastest results</p>
+    </div>
+  </div>
+
+  <div class="priority-row">
+    <div class="priority-group">
+      <div class="priority-head high">🔴 High priority + Quick wins</div>
+      <div class="priority-items">
+        <div class="priority-item">Add Title, Meta Description, Canonical to every page</div>
+        <div class="priority-item">Use correct Semantic HTML</div>
+        <div class="priority-item">Add alt text to every image</div>
+        <div class="priority-item">Add width/height to every &lt;img&gt;</div>
+      </div>
+    </div>
+    <div class="priority-group">
+      <div class="priority-head mid">🟡 High priority + Takes time</div>
+      <div class="priority-items">
+        <div class="priority-item">Adjust Rendering Strategy (SSR/SSG)</div>
+        <div class="priority-item">Add Structured Data</div>
+        <div class="priority-item">Optimize Core Web Vitals</div>
+        <div class="priority-item">Create Sitemap + submit in Search Console</div>
+      </div>
+    </div>
+    <div class="priority-group">
+      <div class="priority-head low">⚪ Can do later</div>
+      <div class="priority-items">
+        <div class="priority-item">Image formats (AVIF/WebP)</div>
+        <div class="priority-item">Advanced caching strategy</div>
+        <div class="priority-item">International SEO (hreflang)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── S11: SEO by Stack ─── -->
+
+</div><!-- .main -->
+</div><!-- .layout -->
+
+<script>
+// Active nav highlight on scroll
+const sections = document.querySelectorAll('.section[id]')
+const navItems = document.querySelectorAll('.nav-item')
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'))
+      const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`)
+      if (active) active.classList.add('active')
+    }
+  })
+}, { rootMargin: '-30% 0px -60% 0px' })
+
+sections.forEach(s => observer.observe(s))
+</script>
+</body>
+</html>
